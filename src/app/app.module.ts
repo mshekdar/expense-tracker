@@ -5,10 +5,21 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './layout/layout.module';
 import { ExpenseModule } from './expenses/expense.module';
+import { CategoriesModule } from './categories/categories.module';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
-  declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, LayoutModule, ExpenseModule],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    LayoutModule,
+    ExpenseModule,
+    CategoriesModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

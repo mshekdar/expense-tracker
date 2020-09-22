@@ -4,12 +4,10 @@ import * as LayoutComponents from './index';
 
 @NgModule({
   declarations: [
-    LayoutComponents.HeaderComponent,
     LayoutComponents.FooterComponent,
   ],
   imports: [CommonModule],
   exports: [
-    LayoutComponents.HeaderComponent,
     LayoutComponents.FooterComponent,
   ]
 })

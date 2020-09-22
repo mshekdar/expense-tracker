@@ -1,13 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" routerLink="/" routerLinkActive="router-link-active">Expense tracker</a>
+  <a class="navbar-brand" routerLink="/">Expense tracker</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/expenses" routerLinkActive="router-link-active">Expenses</a>
-      <a class="nav-item nav-link" routerLink="/categories" routerLinkActive="router-link-active">Categories</a>
+      <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a class="nav-item nav-link" routerLink="/expenses" routerLinkActive="active">Expenses</a>
+      <a class="nav-item nav-link" routerLink="/categories" routerLinkActive="active">Categories</a>
     </div>
   </div>
 </nav>

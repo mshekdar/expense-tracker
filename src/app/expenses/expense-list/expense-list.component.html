@@ -1,1 +1,6 @@
-<p>expense-list works!</p>
+<ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let expense of expenses">
+    {{expense.description}}
+    <span class="badge badge-secondary badge-pill">{{expense.amount}}</span>
+  </li>
+</ul>

@@ -1,21 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as ExpenseComponents from "./index";
 import { ExpenseService } from "./services/expense.service";
+import { RouterModule, Routes } from '@angular/router';
+import { ExpenseHomeComponent } from './expense-home/expense-home.component';
+import { ExpenseDetailComponent } from './expense-detail/expense-detail.component';
+import { ExpenseListComponent } from './expense-list/expense-list.component';
+
+const expenseRoutes: Routes = [
+  {
+    path: '',
+    component: ExpenseHomeComponent,
+    children: [
+      {
+        path: ':id',
+        component: ExpenseDetailComponent
+      }
+    ]
+  }
+]
 
 @NgModule({
   declarations: [
-    ExpenseComponents.ExpenseHomeComponent,
-    ExpenseComponents.ExpenseListComponent,
-    ExpenseComponents.ExpenseDetailComponent,
+    ExpenseHomeComponent,
+    ExpenseListComponent,
+    ExpenseDetailComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild(expenseRoutes),
   ],
   exports: [
-    ExpenseComponents.ExpenseHomeComponent,
-    ExpenseComponents.ExpenseListComponent,
-    ExpenseComponents.ExpenseDetailComponent,
+    RouterModule
   ],
   providers: [
     ExpenseService

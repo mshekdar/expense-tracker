@@ -5,12 +5,14 @@ import { Expense } from "../models/expense.model"
 export class ExpenseService {
   expenses: Expense[] = [
     {
+      id: 1,
       category: 'Travel',
       subscategory: 'Travel',
       description: 'Bus Tickets',
       amount: 1500,
     },
     {
+      id: 2,
       category: 'Home',
       subscategory: 'Rent',
       description: 'Rent for Sept\'20',
@@ -22,5 +24,9 @@ export class ExpenseService {
 
   getAllExpenses(): Expense[] {
     return this.expenses.slice();
+  }
+
+  getExpense(id: number): Expense {
+    return this.expenses.slice().find(ex => ex.id === id);
   }
 }

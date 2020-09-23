@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import * as ExpenseComponents from './expenses/index';
-import * as CategoryComponents from './categories/index';
 import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
@@ -11,11 +9,11 @@ const appRoutes: Routes = [
   },
   {
     path: 'expenses',
-    component: ExpenseComponents.ExpenseHomeComponent
+    loadChildren: () => import('./expenses/expense.module').then(m => m.ExpenseModule)
   },
   {
     path: 'categories',
-    component: CategoryComponents.CategoryHomeComponent
+    loadChildren: () => import('./categories/categories.module').then(m => m.CategoriesModule)
   },
 ];
 

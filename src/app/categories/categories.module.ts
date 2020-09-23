@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as CategoryComponents from './index';
+import { CategoryHomeComponent } from './category-home/category-home.component';
 @NgModule({
   declarations: [
-    CategoryComponents.CategoryHomeComponent
+    CategoryHomeComponent
   ],
   imports: [
     CommonModule

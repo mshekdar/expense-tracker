@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Expense } from "../models/expense.model"
 
@@ -22,7 +23,7 @@ export class ExpenseService {
     }
   ];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private fireStore: AngularFirestore) { }
 
   getAllExpenses(): Expense[] {
     return this.expenses.slice();
@@ -38,5 +39,9 @@ export class ExpenseService {
 
   get(): Observable<Expense[]> {
     return this.http.get<Expense[]>('https://expense-tracker-9291d.firebaseio.com/expenses.json');
+  }
+
+  getExpensesFromFirestore(): Observable<any[]> {
+    return this.fireStore.collection('expenses').valueChanges();
   }
 }

@@ -1,10 +1,12 @@
 <ul class="list-group">
   <li
-    *ngFor="let expense of expenses"
-    [routerLink]="[expense.id]" routerLinkActive="active"
+    *ngFor="let expense of (expenses$ | async)"
     class="list-group-item d-flex justify-content-between align-items-center"
   >
     {{expense.description}}
     <span class="badge badge-danger badge-pill">{{expense.amount | currency: 'INR'}}</span>
   </li>
 </ul>
+
+
+<!-- [routerLink]="[expense.id]" routerLinkActive="active" -->

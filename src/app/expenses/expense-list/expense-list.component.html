@@ -9,9 +9,11 @@
       <li
         *ngFor="let expense of (expenses$ | async)"
         [routerLink]="[expense.id]" routerLinkActive="active"
-        class="list-group-item d-flex justify-content-between align-items-center">
-          {{expense.description}}
-          <span class="badge badge-danger badge-pill">{{expense.amount | currency: 'INR'}}</span>
+        class="list-group-item d-flex justify-content-start align-items-center">
+          <span class="mx-1">{{expense.description || 'No description'}}</span>
+          <span class="badge badge-danger badge-pill ml-auto">{{expense.amount | currency: 'INR'}}</span>
+          <span class="material-icons" (click)="deleteExpense(expense.id)">delete</span>
+          <span class="material-icons" (click)="editExpense(expense.id, $event)" routerLinkActive="router-link-active" >edit</span>
       </li>
     </ul>
   </div>

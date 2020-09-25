@@ -39,6 +39,10 @@ export class ExpenseService {
     )
   }
 
+  deleteExpense(id: string) {
+    return this.expenseCollection.doc(id).delete();
+  }
+
   addExpense(expense: Expense): void {
     this.expenseCollection.add(expense);
   }

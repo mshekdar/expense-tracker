@@ -20,6 +20,10 @@ const expenseRoutes: Routes = [
       {
         path: ':id',
         component: ExpenseDetailComponent
+      },
+      {
+        path: ':id/edit',
+        component: AddExpenseComponent
       }
     ]
   }

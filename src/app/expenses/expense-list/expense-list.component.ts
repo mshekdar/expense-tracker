@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 import { Expense } from '../models/expense.model';
@@ -12,7 +13,7 @@ import { ExpenseService } from '../services/expense.service';
 export class ExpenseListComponent implements OnInit {
   expenses$: Observable<Expense[]>;
 
-  constructor(private expenseService: ExpenseService) {
+  constructor(private expenseService: ExpenseService, private router: Router) {
     this.expenses$ = this.expenseService.getAllExpenses();
   }
 
@@ -24,10 +25,21 @@ export class ExpenseListComponent implements OnInit {
     this.expenseService.addExpense({
       amount: 2003,
       category: 'Travel',
-      subscategory: 'Travel',
+      subcategory: 'Travel',
       description: 'bus tickets',
       id: '123'
     })
+  }
+
+  deleteExpense(id): void {
+    this.expenseService.deleteExpense(id).then(
+      () => console.log('delete success')
+    )
+  }
+
+  editExpense(id: string, e: Event): void {
+    e.stopPropagation();
+    this.router.navigate(['expenses', id, 'edit']);
   }
 
 }

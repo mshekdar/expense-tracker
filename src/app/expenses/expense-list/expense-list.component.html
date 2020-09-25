@@ -1,12 +1,18 @@
-<ul class="list-group">
-  <li
-    *ngFor="let expense of (expenses$ | async)"
-    class="list-group-item d-flex justify-content-between align-items-center"
-  >
-    {{expense.description}}
-    <span class="badge badge-danger badge-pill">{{expense.amount | currency: 'INR'}}</span>
-  </li>
-</ul>
-
-
-<!-- [routerLink]="[expense.id]" routerLinkActive="active" -->
+<div class="row">
+  <div class="col-md-12 my-1">
+    <button type="button" name="add-expenase" id="add-expense" class="btn btn-primary" routerLink="/expenses/add">
+      Add expense
+    </button>
+  </div>
+  <div class="col-md-12 my-1">
+    <ul class="list-group">
+      <li
+        *ngFor="let expense of (expenses$ | async)"
+        [routerLink]="[expense.id]" routerLinkActive="active"
+        class="list-group-item d-flex justify-content-between align-items-center">
+          {{expense.description}}
+          <span class="badge badge-danger badge-pill">{{expense.amount | currency: 'INR'}}</span>
+      </li>
+    </ul>
+  </div>
+</div>

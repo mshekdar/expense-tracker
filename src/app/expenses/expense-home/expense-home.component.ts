@@ -1,5 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ExpenseService } from '../services/expense.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-expense-home',
@@ -7,18 +6,8 @@ import { ExpenseService } from '../services/expense.service';
   styleUrls: ['./expense-home.component.scss']
 })
 export class ExpenseHomeComponent implements OnInit {
-  constructor(private expenseService: ExpenseService) { }
+  constructor() { }
 
-  ngOnInit(): void {
-    this.expenseService.get().subscribe(console.log);
-  }
-
-  saveData(): void {
-    this.expenseService.save().subscribe();
-  }
-
-  getData(): void {
-    this.expenseService.get().subscribe(console.log);
-  }
+  ngOnInit(): void {}
 
 }

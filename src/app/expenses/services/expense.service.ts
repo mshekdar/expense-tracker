@@ -1,47 +1,46 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
+import { distinctUntilChanged, filter, find, map } from 'rxjs/operators';
 import { Expense } from "../models/expense.model"
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ExpenseService {
-  expenses: Expense[] = [
-    {
-      id: 1,
-      category: 'Travel',
-      subscategory: 'Travel',
-      description: 'Bus Tickets',
-      amount: 1500,
-    },
-    {
-      id: 2,
-      category: 'Home',
-      subscategory: 'Rent',
-      description: 'Rent for Sept\'20',
-      amount: 15000
-    }
-  ];
 
-  constructor(private http: HttpClient, private fireStore: AngularFirestore) { }
+  expenseCollection: AngularFirestoreCollection<Expense>;
+  allExpenses$: Observable<Expense[]>;
 
-  getAllExpenses(): Expense[] {
-    return this.expenses.slice();
+  constructor(private fireStore: AngularFirestore) {
+
+    this.expenseCollection = this.fireStore.collection<Expense>('expenses');
+
+    this.allExpenses$ = this.expenseCollection.snapshotChanges().pipe(
+      map((changes) => {
+        return changes.map((expense) => {
+          const returnObj = expense.payload.doc.data();
+          returnObj.id = expense.payload.doc.id;
+          return returnObj;
+        })
+      })
+    );
+
   }
 
-  getExpense(id: number): Expense {
-    return this.expenses.slice().find(ex => ex.id === id);
+  getAllExpenses(): Observable<Expense[]> {
+    return this.allExpenses$;
   }
 
-  save(): Observable<Expense[]> {
-    return this.http.put<Expense[]>('https://expense-tracker-9291d.firebaseio.com/expenses.json', this.expenses);
+  getExpenseById(id: string): Observable<Expense> {
+    return this.allExpenses$.pipe(
+      map(expenses => {
+        return expenses.find(exp => exp.id === id)
+      }),
+      distinctUntilChanged()
+    )
   }
 
-  get(): Observable<Expense[]> {
-    return this.http.get<Expense[]>('https://expense-tracker-9291d.firebaseio.com/expenses.json');
+  addExpense(expense: Expense): void {
+    this.expenseCollection.add(expense);
   }
 
-  getExpensesFromFirestore(): Observable<any[]> {
-    return this.fireStore.collection('expenses').valueChanges();
-  }
 }

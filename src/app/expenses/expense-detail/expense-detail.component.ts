@@ -16,18 +16,10 @@ export class ExpenseDetailComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private expenseService: ExpenseService) { }
 
   ngOnInit(): void {
-    // this.activatedRoute.params.subscribe((params) => {
-    //   const expenseId = params['id'];
-    //   this.expense = this.expenseService.getExpense(+expenseId);
-    // });
-
-    this.expense$ = this.activatedRoute.params.pipe(
-      map((params) => {
-        const expenseId = params['id'];
-        const expense = this.expenseService.getExpense(+expenseId);
-        return expense;
-      })
-    )
+    this.activatedRoute.params.subscribe((params) => {
+      const expenseId = params['id'];
+      this.expense$ = this.expenseService.getExpenseById(expenseId);
+    });
   }
 
 }

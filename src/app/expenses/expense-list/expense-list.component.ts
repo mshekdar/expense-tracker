@@ -17,23 +17,11 @@ export class ExpenseListComponent implements OnInit {
     this.expenses$ = this.expenseService.getAllExpenses();
   }
 
-  ngOnInit(): void {
-    this.expenses$.subscribe(console.log);
-  }
+  ngOnInit(): void {}
 
-  onAdd() {
-    this.expenseService.addExpense({
-      amount: 2003,
-      category: 'Travel',
-      subcategory: 'Travel',
-      description: 'bus tickets',
-      id: '123'
-    })
-  }
-
-  deleteExpense(id): void {
+  deleteExpense(id: string): void {
     this.expenseService.deleteExpense(id).then(
-      () => console.log('delete success')
+      () => this.router.navigateByUrl('/expenses')
     )
   }
 

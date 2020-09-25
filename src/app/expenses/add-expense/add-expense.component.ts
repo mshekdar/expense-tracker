@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 import { Expense } from '../models/expense.model';
 import { ExpenseService } from '../services/expense.service';
@@ -13,7 +14,11 @@ import { ExpenseService } from '../services/expense.service';
 export class AddExpenseComponent implements OnInit {
   expenseForm: FormGroup;
   mode: string = 'add';
-  constructor(private expenseService: ExpenseService, private activatedRoute: ActivatedRoute) {
+  expense: Expense;
+  constructor(
+    private expenseService: ExpenseService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
 
     this.expenseForm = new FormGroup({
       amount: new FormControl('', [Validators.required]),
@@ -25,17 +30,13 @@ export class AddExpenseComponent implements OnInit {
     this.activatedRoute.params.pipe(
       switchMap((params) => {
         const expenseId = params['id'];
-        return expenseId ? this.expenseService.getExpenseById(expenseId) : null;
+        return expenseId ? this.expenseService.getExpenseById(expenseId) : of(null);
       })
     ).subscribe((expense) => {
       if (expense) {
         this.mode = 'edit';
-        this.expenseForm.setValue({
-          amount: expense.amount,
-          category: expense.category,
-          subcategory: expense.subcategory,
-          description: expense.description
-        })
+        this.expense = expense;
+        this.expenseForm.patchValue({...expense})
       }
     })
   }
@@ -44,7 +45,16 @@ export class AddExpenseComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.expenseService.addExpense(this.expenseForm.value);
+    this.expenseService.addExpense(this.expenseForm.value).then((res) => {
+      console.log('Add success', res);
+    });
     this.expenseForm.reset();
+  }
+
+  onSave(): void {
+    this.expenseService.updateExpense(this.expense.id, this.expenseForm.value).then(() => {
+      console.log('Update success');
+    });
+    this.router.navigateByUrl('/expenses/' + this.expense.id)
   }
 }

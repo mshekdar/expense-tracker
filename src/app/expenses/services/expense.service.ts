@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, DocumentReference } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { distinctUntilChanged, filter, find, map } from 'rxjs/operators';
 import { Expense } from "../models/expense.model"
@@ -43,8 +43,12 @@ export class ExpenseService {
     return this.expenseCollection.doc(id).delete();
   }
 
-  addExpense(expense: Expense): void {
-    this.expenseCollection.add(expense);
+  addExpense(expense: Expense): Promise<DocumentReference> {
+    return this.expenseCollection.add(expense);
+  }
+
+  updateExpense(expenseId: string, expense: Expense): Promise<void> {
+    return this.expenseCollection.doc(expenseId).set(expense);
   }
 
 }

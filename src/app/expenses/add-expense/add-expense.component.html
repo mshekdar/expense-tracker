@@ -1,6 +1,6 @@
 <div class="row d-flex justify-content-center">
   <div class="col-md-12">
-    <form [formGroup]="expenseForm">
+    <form [formGroup]="expenseForm" (ngSubmit)="onAdd()">
       <div class="form-group">
         <label for="amount">Amount</label>
         <input type="number" formControlName="amount" class="form-control" name="amount" id="amount"
@@ -24,6 +24,7 @@
         <textarea class="form-control" formControlName="description" name="expense-description" id="expense-description"
           rows="3"></textarea>
       </div>
+      <button type="submit" class="btn btn-primary" [disabled]="expenseForm.invalid">Add expense</button>
     </form>
   </div>
 </div>

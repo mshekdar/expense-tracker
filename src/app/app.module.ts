@@ -11,6 +11,7 @@ import { LayoutModule } from './layout/layout.module';
 import { HomeComponent } from './home/home.component';
 import { environment } from 'src/environments/environment';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AngularFirestoreModule,
     LayoutModule,
   ],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

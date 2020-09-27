@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "expense-tracker-9291d": {
+      "hosting": {
+        "expense-tracker": [
+          "expense-tracker-9291d"
+        ]
+      }
+    }
+  }
+}

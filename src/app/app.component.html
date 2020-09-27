@@ -1,8 +1,24 @@
-<app-header></app-header>
-<div class="container d-flex align-items-stretch">
-  <div>
-    my container
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/">Expense tracker</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+    aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a class="nav-item nav-link" routerLink="/expenses" routerLinkActive="active">Expenses</a>
+      <a class="nav-item nav-link" routerLink="/categories" routerLinkActive="active">Categories</a>
+    </div>
+    <button type="button" *ngIf="!(authService.isLoggedIn$ | async)" class="btn btn-primary ml-auto" (click)="authService.googleSignIn()">Login with Google</button>
+    <div class="ml-auto d-flex align-items-center" *ngIf="(authService.isLoggedIn$ | async)">
+      <span class="mx-3">{{(authService.user$ | async)?.displayName | uppercase}}</span>
+      <button type="button" class="btn btn-warning" (click)="authService.signOut()">Sign out</button>
+    </div>
   </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
 </div>
-<app-footer></app-footer>
-<p>Test</p>

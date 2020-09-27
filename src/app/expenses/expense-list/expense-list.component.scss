@@ -1,0 +1,10 @@
+.list-group {
+  li {
+    cursor: pointer;
+    &.active {
+      background-color: bisque;
+      color: black;
+      border-color: transparent;
+    }
+  }
+}

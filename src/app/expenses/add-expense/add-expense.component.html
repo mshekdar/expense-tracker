@@ -1,0 +1,30 @@
+<div class="row d-flex justify-content-center">
+  <div class="col-md-12">
+    <form [formGroup]="expenseForm" (ngSubmit)="mode === 'add' ? onAdd() : onSave()">
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" formControlName="amount" class="form-control" name="amount" id="amount"
+          aria-describedby="expense amount" placeholder="Enter amount">
+        <small id="expense amount" class="form-text text-muted">Enter expense amount</small>
+      </div>
+      <div class="form-group">
+        <label for="expense-category">Category</label>
+        <input type="text" formControlName="category" class="form-control" name="expense-category" id="expense-category"
+          aria-describedby="expense category" placeholder="Expense category">
+        <small id="expense category" class="form-text text-muted">Add expense category</small>
+      </div>
+      <div class="form-group">
+        <label for="expense-category">Subcategory</label>
+        <input type="text" formControlName="subcategory" class="form-control" name="expense-subcategory"
+          id="expense-subcategory" aria-describedby="expense subcategory" placeholder="Expense subcategory">
+        <small id="expense subcategory" class="form-text text-muted">Add expense subcategory</small>
+      </div>
+      <div class="form-group">
+        <label for="expense-description">Description</label>
+        <textarea class="form-control" formControlName="description" name="expense-description" id="expense-description"
+          rows="3"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="expenseForm.invalid">{{mode === 'add' ? 'Add' : 'Save'}}</button>
+    </form>
+  </div>
+</div>
